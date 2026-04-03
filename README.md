@@ -6,7 +6,6 @@
 
 ### **How does it work?**
 
-
 ### **Installation**
 
 **Available April 15, 2026**
@@ -25,13 +24,43 @@ pnpm install -g vaultgen
 
 Using `yarn`:
 
-```bash
-yarn global add vaultgen
-```
-
 ### **Usage**
 
-### **Business Logic**
+```bash
+# Create a new vault
+vaultgen init
+
+# Add a new credential to the vault
+vaultgen new
+
+# List all credentials in the vault and copy to clipboard
+vaultgen list
+
+# Remove a credential from the vault
+vaultgen delete
+
+# Update an existing credential
+vaultgen update
+
+# Analyze all credentials for security vulnerabilities
+vaultgen audit
+
+# Completely wipe the vault — all credentials, metadata and config
+vaultgen reset
+```
+
+### **Commands**
+
+| **Command** | **Description** |
+| --- | --- |
+| `vaultgen init` | Initialize the local vault. |
+| `vaultgen new` | Add a new credential to the vault. |
+| `vaultgen list` | List all credentials in the vault and copy to clipboard. |
+| `vaultgen delete` | Remove a credential from the vault. |
+| `vaultgen update` | Update an existing credential. |
+| `vaultgen audit` | Analyze all credentials for security vulnerabilities. |
+| `vaultgen reset` | Completely wipe the vault — all credentials, metadata and config. |
+
 
 ### **License**
 
