@@ -5,7 +5,8 @@ import chalk from "chalk";
 
 export const registerDelete = (program: Command) => {
     program
-        .command("rm")
+        .command("delete")
+        .alias("rm")
         .description("Remove a credential from the vault")
         .action(async () => {
             const entries = store.get("entries") as VaultEntryData[];

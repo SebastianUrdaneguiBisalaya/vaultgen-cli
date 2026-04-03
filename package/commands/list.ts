@@ -7,7 +7,8 @@ import chalk from "chalk";
 
 export const registerList = (program: Command) => {
     program
-        .command("ls")
+        .command("list")
+        .alias("ls")
         .description("List all credentials in the vault and copy to clipboard.")
         .action(async () => {
             const entries = store.get("entries") as VaultEntryData[];

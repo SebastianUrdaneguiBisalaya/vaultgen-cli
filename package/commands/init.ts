@@ -6,6 +6,7 @@ import chalk from "chalk";
 export const registerInit = (program: Command) => {
     program
         .command("init")
+        .alias("i")
         .description("Initialize the local vault")
         .action(async () => {
             intro(chalk.hex("#5D3FD3")(" VaultGen Setup "));

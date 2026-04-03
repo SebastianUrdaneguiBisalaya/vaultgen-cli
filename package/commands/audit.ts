@@ -8,6 +8,7 @@ import { analyzePassword } from "../core/validator.js";
 export const registerAudit = (program: Command) => {
     program
         .command("audit")
+        .alias("a")
         .description("Analyze all credentials for security vulnerabilities.")
         .action(async () => {
             const entries = store.get("entries") as VaultEntryData[];

@@ -8,6 +8,7 @@ import chalk from "chalk";
 export const registerNew = (program: Command) => {
     program
         .command("new")
+        .alias("n")
         .description("Add a new credential to the vault")
         .action(async () => {
             intro(chalk.cyan(" Add Credential "));
