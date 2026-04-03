@@ -1,4 +1,4 @@
-# **Vaultgen CLI**
+# **VaultGen CLI**
 
 > Developed by [**Sebastian Marat Urdanegui Bisalaya**](https://sebastianurdanegui.com)
 
