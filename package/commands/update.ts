@@ -11,7 +11,7 @@ export const registerUpdate = (program: Command) => {
         .alias("up")
         .description("Update an existing credential.")
         .action(async () => {
-            intro(chalk.cyan(" Update Credential "));
+            intro(chalk.cyan(" Update Data "));
             const entries = store.get("entries") as VaultEntryData[];
             if (!entries || entries.length === 0) return console.log(chalk.yellow("Vault is empty."));
             const choice = await select({
