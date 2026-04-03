@@ -7,7 +7,7 @@ Built to operate entirely within the CLI, it leverages local master key encrypti
 
 ### **How does it work?**
 
-VaultGen uses a local master key to encrypt all credentials stored in the vault using `AES-256-GCM` algorithm. This ensures that your credentials are secure and cannot be accessed without the master key. The algorithm usages an **initialization vector** (IV) of 12 bytes guaranteeing that the same ciphertext with the same key will generate different ciphertexts each time. Also, the algorithm uses a **salt** of 32 bytes to prevent attackers from using precomputed tables to crack the key.
+VaultGen uses a local master key to encrypt all credentials stored in the vault using `AES-256-GCM` algorithm. This ensures that your credentials are secure and cannot be accessed without the master key. The algorithm uses an **initialization vector** (IV) of 12 bytes guaranteeing that the same ciphertext with the same key will generate different ciphertexts each time. Also, the algorithm uses a **salt** of 32 bytes to prevent attackers from using precomputed tables to crack the key.
 
 The master key never touches the disk, ensuring that it only lives in RAM during the session.
 
