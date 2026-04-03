@@ -1,16 +1,23 @@
 import Conf from "conf";
 
-export interface VaultEntry {
+export interface VaultEntryData {
     id: string;
     service: string;
     updatedAt: string;
-    data: Record<string, string>;
+    data: VaultEntry;
 }
 
-export const store = new Conf({
+export interface VaultEntry {
+    content: string;
+    iv: string;
+    salt: string;
+    tag: string;
+}
+
+export const store = new Conf<{ initialized: boolean, entries: VaultEntryData[] }>({
     projectName: "vaultgen",
     defaults: {
         initialized: false,
-        entries: [] as VaultEntry[],
+        entries: [],
     }
 })
