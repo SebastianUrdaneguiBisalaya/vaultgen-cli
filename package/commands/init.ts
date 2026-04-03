@@ -14,7 +14,7 @@ export const registerInit = (program: Command) => {
                 return outro(chalk.yellow("Vault is already initialized at: " + store.path));
             }
             const master = await password({
-                message: "Create y"
+                message: "Create a Master Key to encrypt your vault."
             });
             if (isCancel(master)) return cancel("Cancelled.");
             store.set("initialized", true);

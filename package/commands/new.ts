@@ -16,7 +16,7 @@ export const registerNew = (program: Command) => {
             const account = await text({ message: "Account name (e.g. MyAccount)"});
             const username = await text({ message: "Username (e.g. John Doe)"});
             const pwd = await password({ message: "Password (e.g. 123456)"});
-            if (isCancel(service) || isCancel(account) || isCancel(username) || isCancel(password)) return cancel("Cancelled.");
+            if (isCancel(service) || isCancel(account) || isCancel(username) || isCancel(pwd)) return cancel("Cancelled.");
             try {
                 CredentialSchema.parse({
                     service,
@@ -31,32 +31,31 @@ export const registerNew = (program: Command) => {
             const analysis = analyzePassword(pwd.toString());
             if (analysis.isWeak) {
                 note(`Weak password detected.\n${analysis.suggestion}`, "Security Warning");
-                const master = await password({ message: "Enter Master Key to encrypt"});
-                if (isCancel(master)) return cancel("Cancelled.");
-                const s = spinner();
-                s.start("Encrypting password...");
-                try {
-                    const payload = JSON.stringify({
-                        service,
-                        account,
-                        username,
-                        password: pwd,
-                    });
-                    const encryptedData = CryptoEngine.encrypt(payload, master);
-                    const entries = store.get("entries") as VaultEntryData[];
-                    entries.push({
-                        id: crypto.randomUUID(),
-                        service,
-                        updatedAt: new Date().toISOString(),
-                        data: encryptedData,
-                    })
-                    store.set("entries", entries);
-                    s.stop(chalk.green("✓ Password successfully encrypted."));
-                } catch (error: unknown) {
-                    const err = error instanceof Error ? error.message : "Something went wrong.";
-                    s.stop(chalk.red(err));
-                }
-                outro(chalk.green(`✓ Done.`));
             }
+            const master = await password({ message: "Enter Master Key to encrypt"});
+            if (isCancel(master)) return cancel("Cancelled.");
+            const s = spinner();
+            s.start("Encrypting and saving...");
+            try {
+                const payload = JSON.stringify({
+                    account,
+                    username,
+                    password: pwd,
+                });
+                const encryptedData = CryptoEngine.encrypt(payload, master);
+                const entries = store.get("entries") as VaultEntryData[];
+                entries.push({
+                    id: crypto.randomUUID(),
+                    service,
+                    updatedAt: new Date().toISOString(),
+                    data: encryptedData,
+                })
+                store.set("entries", entries);
+                s.stop(chalk.green("✓ Password successfully encrypted."));
+            } catch (error: unknown) {
+                const err = error instanceof Error ? error.message : "Something went wrong.";
+                s.stop(chalk.red(err));
+            }
+            outro(chalk.green(`✓ Done.`));
         })
 }

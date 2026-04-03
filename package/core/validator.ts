@@ -12,7 +12,7 @@ export function analyzePassword(pwd: string): { score: number, isWeak: boolean, 
     const hasUpper = /[A-Z]/.test(pwd);
     const hasLower = /[a-z]/.test(pwd);
     const hasNumber = /[0-9]/.test(pwd);
-    const hasSymbol = /[A-Za-z0-9]/.test(pwd);
+    const hasSymbol = /[^A-Za-z0-9]/.test(pwd);
     const isLong = pwd.length >= 12;
     const score = [hasUpper, hasLower, hasNumber, hasSymbol, isLong].filter(Boolean).length;
     return {

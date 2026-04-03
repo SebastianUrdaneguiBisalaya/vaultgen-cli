@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-const PURPLE = "##5D3FD3";
+const PURPLE = "#5D3FD3";
 const WHITE = "#FFFFFF";
 
 const rawLogo = `
@@ -18,7 +18,6 @@ const logoWidth = rawLogo.split("\n")[0]?.length ?? 70;
 const padding = " ".repeat(Math.max(0, Math.floor((logoWidth - subtitle.length) / 2)));
 
 export const HEADER = `
-${chalk.italic.white("Welcome to VaultGen!")}
 ${chalk.hex(PURPLE)(rawLogo)}
 ${padding}${chalk.hex(WHITE)(subtitle)}
 `;

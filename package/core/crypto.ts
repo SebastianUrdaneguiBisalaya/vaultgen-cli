@@ -17,10 +17,10 @@ export interface EncryptedData {
 
 export const CryptoEngine = {
     deriveKey(masterKey: string, salt: Buffer): Buffer {
-        return scryptSync(masterKey, salt, KEY_LEN);
+        return scryptSync(masterKey, salt, KEY_LEN, { N: 131072, r: 8, p: 1 });
     },
     encrypt(text: string, masterKey: string): EncryptedData {
-        const salt = randomBytes(16);
+        const salt = randomBytes(32);
         const iv = randomBytes(12);
         const key = this.deriveKey(masterKey, salt);
         const cipher = createCipheriv(ALGORITHM, key, iv);

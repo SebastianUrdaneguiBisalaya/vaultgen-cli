@@ -30,12 +30,12 @@ export const registerAudit = (program: Command) => {
                     } else {
                         report.push(`${chalk.green("✓")} ${entry.service}: Strong (Score: ${analysis.score}/5`);
                     }
-                    s.stop(chalk.cyan("Audit complete."));
-                    console.log("\n" + chalk.bold("Security Report"));
-                    report.forEach((line) => console.log(line));
-                    if (weakCount > 0) {
-                        console.log(`\n${chalk.yellow(`Warning: You have ${weakCount} weak password.`)}`);
-                    }
+                }
+                s.stop(chalk.cyan("Audit complete."));
+                console.log("\n" + chalk.bold("Security Report"));
+                report.forEach((line) => console.log(line));
+                if (weakCount > 0) {
+                    console.log(`\n${chalk.yellow(`Warning: You have ${weakCount} weak password.`)}`);
                 }
             } catch (error: unknown) {
                 const err = error instanceof Error ? error.message : "Something went wrong.";

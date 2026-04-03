@@ -17,7 +17,7 @@ export const registerList = (program: Command) => {
                 message: "Select a service to copy its password to clipboard",
                 options: entries.map((entry) => ({
                     value: entry,
-                    label: `${entry.service.padEnd(20)} • updated at ${new Date(entry.updatedAt).toLocaleDateString()}`,
+                    label: `${entry.service} • updated at ${new Date(entry.updatedAt).toLocaleDateString()}`,
                 })),
             });
             if (isCancel(choice)) return cancel("Cancelled.");
@@ -29,6 +29,14 @@ export const registerList = (program: Command) => {
                 const { password: plainPassword } = JSON.parse(decryptedData);
                 clipboard.writeSync(plainPassword);
                 note("Copied to clipboard - clears in 30s.", "Success");
+                setTimeout(() => {
+                    try {
+                        const current = clipboard.readSync();
+                        if (current === plainPassword) {
+                            clipboard.writeSync("");
+                        }
+                    } catch {}
+                }, 30000);
             } catch (error: unknown) {
                 const err = error instanceof Error ? error.message : "Something went wrong.";
                 cancel(chalk.red(`Invalid Master Key or corrupted data.\n${err}`));
