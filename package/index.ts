@@ -19,9 +19,9 @@ registerAudit(program);
 registerReset(program);
 
 if (!process.argv.slice(2).length) {
-    console.log(HEADER);
-    program.outputHelp();
-    process.exit(0);
+	console.log(HEADER);
+	program.outputHelp();
+	process.exit(0);
 }
 
 program.parse(process.argv);

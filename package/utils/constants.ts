@@ -12,10 +12,13 @@ const rawLogo = `
   ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═══╝    
 `.trim();
 
-const subtitle = "A minimalist CLI password manager secured with local master key encryption.";
+const subtitle =
+	"A minimalist CLI password manager secured with local master key encryption.";
 
 const logoWidth = rawLogo.split("\n")[0]?.length ?? 70;
-const padding = " ".repeat(Math.max(0, Math.floor((logoWidth - subtitle.length) / 2)));
+const padding = " ".repeat(
+	Math.max(0, Math.floor((logoWidth - subtitle.length) / 2)),
+);
 
 export const HEADER = `
 ${chalk.hex(PURPLE)(rawLogo)}
