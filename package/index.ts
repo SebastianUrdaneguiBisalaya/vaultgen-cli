@@ -6,6 +6,7 @@ import { registerInit } from "./commands/init.js";
 import { registerNew } from "./commands/new.js";
 import { registerList } from "./commands/list.js";
 import { registerDelete } from "./commands/delete.js";
+import { registerAudit } from "./commands/audit.js";
 
 console.log(HEADER);
 
@@ -13,6 +14,7 @@ registerInit(program);
 registerNew(program);
 registerList(program);
 registerDelete(program);
+registerAudit(program);
 
 program.parse(process.argv);
 
