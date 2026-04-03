@@ -52,6 +52,11 @@ export const registerNew = (program: Command) => {
                 })
                 store.set("entries", entries);
                 s.stop(chalk.green("✓ Password successfully encrypted."));
+                note(
+                    `Stored at: ${chalk.cyan(store.path)}\n` +
+                    `Encrypted: ${chalk.gray("AES-256-GCM — only decryptable with your Master Key.")}\n`,
+                    "Saved"
+                )
             } catch (error: unknown) {
                 const err = error instanceof Error ? error.message : "Something went wrong.";
                 s.stop(chalk.red(err));

@@ -1,7 +1,8 @@
 import { Command } from "commander";
-import { intro, password, outro, isCancel, cancel } from "@clack/prompts";
+import { intro, password, outro, isCancel, cancel, note } from "@clack/prompts";
 import { store } from "../core/store.js";
 import chalk from "chalk";
+import os from "node:os";
 
 export const registerInit = (program: Command) => {
     program
@@ -19,6 +20,13 @@ export const registerInit = (program: Command) => {
             if (isCancel(master)) return cancel("Cancelled.");
             store.set("initialized", true);
             store.set("entries", []);
-            outro(chalk.green(`✓ Vault successfully created at ${store.path}`));
+            note(
+                `Vault file: ${chalk.cyan(store.path)}\n` +
+                `Platform: ${chalk.gray(os.platform())} (${chalk.gray(os.arch())})\n\n` +
+                `${chalk.yellow("Your Master Key is never stored anywhere.")}\n` +
+                `${chalk.yellow("If you lose it, your credentials cannot be recovered.")}`,
+                "Vault created"
+            )
+            outro(chalk.green("✓ Ready. Run 'vaultgen new' to add your first credential."));
         })
 }

@@ -28,7 +28,7 @@ export const registerUpdate = (program: Command) => {
             if (isCancel(master)) return cancel("Cancelled.");
             let currentData: { account: string, username: string, password: string };
             try {
-                const decryptedStr = CryptoEngine.decrypt(targetEntry.data, master);
+                const decryptedStr = CryptoEngine.decrypt(targetEntry.data, master as string);
                 currentData = JSON.parse(decryptedStr);
             } catch (error: unknown) {
                 const err = error instanceof Error ? error.message : "Something went wrong.";
@@ -82,7 +82,12 @@ export const registerUpdate = (program: Command) => {
                     return entry;
                 });
                 store.set("entries", updateEntries);
-                s.stop(chalk.green(`✓ Credential '${finalAccount}' update successfully.`));
+                s.stop(chalk.green(`✓ Credential '${finalAccount}' updated successfully.`));
+                note(
+                    `Stored at: ${chalk.cyan(store.path)}\n` +
+                    `Encrypted: ${chalk.gray("AES-256-GCM — only decryptable with your Master Key.")}\n`,
+                    "Updated"
+                )
             } catch (error: unknown) {
                 const err = error instanceof Error ? error.message : "Something went wrong.";
                 s.stop(chalk.red(err));

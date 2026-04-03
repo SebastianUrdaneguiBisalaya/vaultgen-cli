@@ -21,7 +21,7 @@ export const registerDelete = (program: Command) => {
             });
             if (isCancel(choice)) return cancel("Cancelled.");
             const sure = await confirm({ message: "Are you sure you want to delete this credential?" });
-            if (sure) return cancel("Cancelled.");
+            if (isCancel(sure) || !sure) return cancel("Cancelled.");
             const master = await password({ message: "Enter Master Key to confirm deletion."});
             if (isCancel(master)) return cancel("Cancelled.");
             const target = entries.find((entry) => entry.id === choice);
