@@ -31,8 +31,6 @@ Using `pnpm`:
 pnpm install -g vaultgen
 ```
 
-Using `yarn`:
-
 ### **Usage**
 
 ```bash
