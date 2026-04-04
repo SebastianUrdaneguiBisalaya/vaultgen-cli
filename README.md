@@ -19,8 +19,6 @@ The Master Key is never stored and only exists in memory during the session. To 
 
 ### **Installation**
 
-**Available April 15, 2026**
-
 Using `npm`:
 
 ```bash
