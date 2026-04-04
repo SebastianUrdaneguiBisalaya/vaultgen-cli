@@ -11,6 +11,8 @@ export const CredentialSchema = z.object({
 	password: z.string().min(1, "Password is required."),
 });
 
+export const UpdateCredentialSchema = CredentialSchema.omit({ service: true })
+
 export function analyzePassword(pwd: string): {
 	score: number;
 	isWeak: boolean;

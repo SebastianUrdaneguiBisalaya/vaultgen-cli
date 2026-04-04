@@ -11,7 +11,7 @@ import {
 } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
 import { CryptoEngine } from "../core/crypto.js";
-import { CredentialSchema, verifyMasterKey } from "../core/validator.js";
+import { UpdateCredentialSchema, verifyMasterKey } from "../core/validator.js";
 import chalk from "chalk";
 
 export const registerUpdate = (program: Command) => {
@@ -76,7 +76,7 @@ export const registerUpdate = (program: Command) => {
 			const finalPassword =
 				(newPassword as string).trim() || currentData.password;
 			try {
-				CredentialSchema.parse({
+				UpdateCredentialSchema.parse({
 					account: finalAccount,
 					username: finalUsername,
 					password: finalPassword,
