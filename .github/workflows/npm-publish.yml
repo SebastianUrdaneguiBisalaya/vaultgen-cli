@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+          scope: '@stackvoid'
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
