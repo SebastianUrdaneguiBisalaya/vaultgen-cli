@@ -1,6 +1,6 @@
 {
   "name": "@stackvoid/vaultgen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A minimalist CLI password manager secured with local master key encryption and seamless clipboard integration.",
   "main": "index.js",
   "type": "module",
