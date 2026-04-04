@@ -1,7 +1,7 @@
 {
-  "name": "vaultgen",
+  "name": "@stackvoid/vaultgen",
   "version": "1.0.0",
-  "description": "",
+  "description": "A minimalist CLI password manager secured with local master key encryption and seamless clipboard integration.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,9 +12,16 @@
   "bin": {
     "vaultgen": "./dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["cli", "password-manager", "vault", "encryption", "security"],
+  "author": "Sebastian Marat Urdanegui Bisalaya <sebastianurdanegui.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianUrdaneguiBisalaya/vaultgen-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/SebastianUrdaneguiBisalaya/vaultgen-cli/issues"
+  },
+  "license": "MIT",
   "packageManager": "pnpm@10.23.0",
   "dependencies": {
     "@clack/prompts": "1.2.0",
@@ -28,7 +35,13 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@types/node": "^25.5.0",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "tsx": "4.21.0",
+    "typescript": "6.0.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">= 18.0.0"
   }
 }
