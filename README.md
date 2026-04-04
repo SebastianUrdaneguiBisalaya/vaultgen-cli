@@ -13,7 +13,7 @@ VaultGen uses a user-provided password to securely encrypt all credentials using
 
 A **32-byte** salt is also used during key derivation. The salt ensures that the same password will produce different derived keys, preventing attacks based on precomputed tables such as rainbow tables.
 
-The user password is never stored and only exists in memory during the session.
+The Master Key is never stored and only exists in memory during the session. To validate the `Master Key` without storing it, `VaultGen` encrypts a known verification string during vault initialization and sabes the resulting ciphertext. On every subsequent operation, it attempts to decrypt this verifier —— if the result matches, the Master Key is accepted; otherwise, it is rejected. The Master Key itself is never persisted anywhere.
 
 `AES-256-GCM` also provides built-in authentication via an authentication tag. This ensures that encrypted data cannot be tampered with without detection.
 
