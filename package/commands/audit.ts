@@ -48,6 +48,7 @@ export const registerAudit = (program: Command) => {
 					console.log(
 						`\n${chalk.yellow(`Warning: You have ${weakCount} weak password.`)}`,
 					);
+					console.log(chalk.red("Universal pattern: 12+ chars, mix of A-Z, a-z, 0-9, and symbols (!@#$%^&*)"))
 				}
 			} catch (error: unknown) {
 				const err =
