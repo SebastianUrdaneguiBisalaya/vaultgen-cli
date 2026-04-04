@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { select, password, note, isCancel, cancel } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
 import { CryptoEngine } from "../core/crypto.js";
+import { verifyMasterKey } from "../core/validator.js";
 import clipboard from "clipboardy";
 import chalk from "chalk";
 
@@ -24,6 +25,9 @@ export const registerList = (program: Command) => {
 			if (isCancel(choice)) return cancel("Cancelled.");
 			const master = await password({ message: "Enter Master Key to decrypt" });
 			if (isCancel(master)) return cancel("Cancelled.");
+			if (!verifyMasterKey(master.toString())) {
+				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
+			}
 			try {
 				const entry = choice as VaultEntryData;
 				const decryptedData = CryptoEngine.decrypt(entry.data, master);

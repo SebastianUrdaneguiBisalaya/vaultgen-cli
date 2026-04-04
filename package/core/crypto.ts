@@ -17,7 +17,7 @@ export interface EncryptedData {
 
 export const CryptoEngine = {
 	deriveKey(masterKey: string, salt: Buffer): Buffer {
-		return scryptSync(masterKey, salt, KEY_LEN, { N: 131072, r: 8, p: 1 });
+		return scryptSync(masterKey, salt, KEY_LEN, { N: 16384, r: 8, p: 1 });
 	},
 	encrypt(text: string, masterKey: string): EncryptedData {
 		const salt = randomBytes(32);

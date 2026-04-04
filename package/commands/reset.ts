@@ -13,6 +13,7 @@ import { CryptoEngine } from "../core/crypto.js";
 import type { VaultEntryData } from "../core/store.js";
 import chalk from "chalk";
 import fs from "node:fs";
+import { verifyMasterKey } from "../core/validator.js";
 
 export const registerReset = (program: Command) => {
 	program
@@ -43,6 +44,9 @@ export const registerReset = (program: Command) => {
 			});
 			if (isCancel(sure) || !sure) return cancel("Cancelled.");
 			if (isCancel(master)) return cancel("Cancelled.");
+			if (!verifyMasterKey(master.toString())) {
+				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
+			}
 			const entries = store.get("entries") as VaultEntryData[];
 			if (entries && entries.length > 0) {
 				try {

@@ -1,4 +1,8 @@
 import { z } from "zod";
+import { store } from "./store.js";
+import { CryptoEngine } from "./crypto.js";
+
+const VERIFICATION_PAYLOAD = "vaultgen-verify";
 
 export const CredentialSchema = z.object({
 	service: z.string().min(1, "Service name is required."),
@@ -24,6 +28,22 @@ export function analyzePassword(pwd: string): {
 		score,
 		isWeak: score < 4,
 		suggestion:
-			"Universal pattern: 12+ chars, mix of A-Z, a-z, 0-9, and symbols (!@#S",
+			"Universal pattern: 12+ chars, mix of A-Z, a-z, 0-9, and symbols (!@#$%^&*)",
 	};
+}
+
+export function createVerifier(masterKey: string): void {
+	const verifier = CryptoEngine.encrypt(VERIFICATION_PAYLOAD, masterKey);
+	store.set("verifier", verifier);
+}
+
+export function verifyMasterKey(masterKey: string): boolean {
+	const verifier = store.get("verifier");
+	if (!verifier.content) return false;
+	try {
+		const result = CryptoEngine.decrypt(verifier, masterKey);
+		return result === VERIFICATION_PAYLOAD;
+	} catch {
+		return false;
+	}
 }

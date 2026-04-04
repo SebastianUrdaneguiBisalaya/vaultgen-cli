@@ -3,7 +3,7 @@ import { password, isCancel, cancel, spinner } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
 import { CryptoEngine } from "../core/crypto.js";
 import chalk from "chalk";
-import { analyzePassword } from "../core/validator.js";
+import { analyzePassword, verifyMasterKey } from "../core/validator.js";
 
 export const registerAudit = (program: Command) => {
 	program
@@ -18,6 +18,9 @@ export const registerAudit = (program: Command) => {
 				message: "Enter Master Key to begin audit",
 			});
 			if (isCancel(master)) return cancel("Cancelled.");
+			if (!verifyMasterKey(master.toString())) {
+				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
+			}
 			const s = spinner();
 			s.start("Auditing vault...");
 			let weakCount = 0;

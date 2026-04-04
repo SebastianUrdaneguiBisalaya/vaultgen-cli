@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { select, isCancel, cancel, confirm, password } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
 import { CryptoEngine } from "../core/crypto.js";
+import { verifyMasterKey } from "../core/validator.js";
 import chalk from "chalk";
 
 export const registerDelete = (program: Command) => {
@@ -29,6 +30,9 @@ export const registerDelete = (program: Command) => {
 				message: "Enter Master Key to confirm deletion.",
 			});
 			if (isCancel(master)) return cancel("Cancelled.");
+			if (!verifyMasterKey(master.toString())) {
+				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
+			}
 			const target = entries.find((entry) => entry.id === choice);
 			if (!target) return console.log(chalk.red("Entry not found."));
 			try {

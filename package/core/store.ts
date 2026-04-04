@@ -17,10 +17,17 @@ export interface VaultEntry {
 export const store = new Conf<{
 	initialized: boolean;
 	entries: VaultEntryData[];
+	verifier: VaultEntry;
 }>({
 	projectName: "vaultgen",
 	defaults: {
 		initialized: false,
 		entries: [],
+		verifier: {
+			content: "",
+			iv: "",
+			salt: "",
+			tag: "",
+		},
 	},
 });

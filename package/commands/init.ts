@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { intro, password, outro, isCancel, cancel, note } from "@clack/prompts";
 import { store } from "../core/store.js";
+import { createVerifier } from "../core/validator.js";
 import chalk from "chalk";
 import os from "node:os";
 
@@ -20,6 +21,7 @@ export const registerInit = (program: Command) => {
 				message: "Create a Master Key to encrypt your vault.",
 			});
 			if (isCancel(master)) return cancel("Cancelled.");
+			createVerifier(master.toString());
 			store.set("initialized", true);
 			store.set("entries", []);
 			note(

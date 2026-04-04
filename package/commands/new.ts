@@ -5,13 +5,12 @@ import {
 	text,
 	note,
 	spinner,
-	outro,
 	isCancel,
 	cancel,
 } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
 import { CryptoEngine } from "../core/crypto.js";
-import { CredentialSchema, analyzePassword } from "../core/validator.js";
+import { CredentialSchema, analyzePassword, verifyMasterKey } from "../core/validator.js";
 import chalk from "chalk";
 
 export const registerNew = (program: Command) => {
@@ -21,7 +20,7 @@ export const registerNew = (program: Command) => {
 		.description("Add a new credential to the vault")
 		.action(async () => {
 			intro(chalk.cyan(" Add Credential "));
-			const service = await text({ message: "Service name (e.g. Netflix" });
+			const service = await text({ message: "Service name (e.g. Netflix)" });
 			const account = await text({ message: "Account name (e.g. MyAccount)" });
 			const username = await text({ message: "Username (e.g. John Doe)" });
 			const pwd = await password({ message: "Password (e.g. 123456)" });
@@ -53,6 +52,9 @@ export const registerNew = (program: Command) => {
 			}
 			const master = await password({ message: "Enter Master Key to encrypt" });
 			if (isCancel(master)) return cancel("Cancelled.");
+			if (!verifyMasterKey(master.toString())) {
+				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
+			}
 			const s = spinner();
 			s.start("Encrypting and saving...");
 			try {
@@ -62,7 +64,7 @@ export const registerNew = (program: Command) => {
 					password: pwd,
 				});
 				const encryptedData = CryptoEngine.encrypt(payload, master);
-				const entries = store.get("entries") as VaultEntryData[];
+				const entries = store.get("entries") as VaultEntryData[] ?? [];
 				entries.push({
 					id: crypto.randomUUID(),
 					service,
@@ -81,6 +83,5 @@ export const registerNew = (program: Command) => {
 					error instanceof Error ? error.message : "Something went wrong.";
 				s.stop(chalk.red(err));
 			}
-			outro(chalk.green(`✓ Done.`));
 		});
 };
