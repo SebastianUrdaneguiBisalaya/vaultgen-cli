@@ -10,7 +10,7 @@ export const registerInit = (program: Command) => {
 		.alias("i")
 		.description("Initialize the local vault")
 		.action(async () => {
-			intro(chalk.hex("#5D3FD3")(" VaultGen Setup "));
+			intro(chalk.hex("#FD8000")(" VaultGen Setup "));
 			if (store.get("initialized")) {
 				return outro(
 					chalk.yellow("Vault is already initialized at: " + store.path),

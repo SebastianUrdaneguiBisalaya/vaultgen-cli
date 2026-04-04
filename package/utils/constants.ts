@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-const PURPLE = "#5D3FD3";
+const PURPLE = "#FF8000";
 const WHITE = "#FFFFFF";
 
 const rawLogo = `
