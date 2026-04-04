@@ -38,11 +38,10 @@ export const registerReset = (program: Command) => {
 			const sure = await confirm({
 				message: "Are you absolutely sure you want to wipe the vault?",
 			});
-			if (isCancel(sure)) return cancel("Cancelled.");
+			if (isCancel(sure) || !sure) return cancel("Cancelled.");
 			const master = await password({
 				message: "Enter Master Key to confirm deletion.",
 			});
-			if (isCancel(sure) || !sure) return cancel("Cancelled.");
 			if (isCancel(master)) return cancel("Cancelled.");
 			if (!verifyMasterKey(master.toString())) {
 				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
