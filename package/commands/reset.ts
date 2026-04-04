@@ -9,8 +9,6 @@ import {
 	confirm,
 } from "@clack/prompts";
 import { store } from "../core/store.js";
-import { CryptoEngine } from "../core/crypto.js";
-import type { VaultEntryData } from "../core/store.js";
 import chalk from "chalk";
 import fs from "node:fs";
 import { verifyMasterKey } from "../core/validator.js";
@@ -28,7 +26,7 @@ export const registerReset = (program: Command) => {
 				return outro(chalk.yellow("Vault is not initialized yet."));
 			}
 			note(
-				`This will permanently detele:\n` +
+				`This will permanently delete:\n` +
 					` • All saved credentials\n` +
 					` • All saved metadata\n` +
 					` • The vault file at ${chalk.gray(store.path)}\n` +
@@ -45,17 +43,6 @@ export const registerReset = (program: Command) => {
 			if (isCancel(master)) return cancel("Cancelled.");
 			if (!verifyMasterKey(master.toString())) {
 				return cancel(chalk.red("✗ Invalid Master Key. Credential not saved."));
-			}
-			const entries = store.get("entries") as VaultEntryData[];
-			if (entries && entries.length > 0) {
-				try {
-					const firstEntry = entries[0];
-					if (firstEntry) {
-						CryptoEngine.decrypt(firstEntry.data, master as string);
-					}
-				} catch {
-					return cancel(chalk.red("Invalid Master Key or corrupted data."));
-				}
 			}
 			try {
 				fs.unlinkSync(store.path);

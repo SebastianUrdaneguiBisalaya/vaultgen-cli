@@ -1,7 +1,6 @@
 import { Command } from "commander";
 import { select, isCancel, cancel, confirm, password } from "@clack/prompts";
 import { store, type VaultEntryData } from "../core/store.js";
-import { CryptoEngine } from "../core/crypto.js";
 import { verifyMasterKey } from "../core/validator.js";
 import chalk from "chalk";
 
@@ -35,15 +34,6 @@ export const registerDelete = (program: Command) => {
 			}
 			const target = entries.find((entry) => entry.id === choice);
 			if (!target) return console.log(chalk.red("Entry not found."));
-			try {
-				CryptoEngine.decrypt(target.data, master);
-			} catch (error: unknown) {
-				const err =
-					error instanceof Error ? error.message : "Something went wrong.";
-				return cancel(
-					chalk.red(`Invalid Master Key or corrupted data.\n${err}`),
-				);
-			}
 			store.set(
 				"entries",
 				entries.filter((entry) => entry.id !== choice),
