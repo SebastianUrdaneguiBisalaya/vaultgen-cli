@@ -22,13 +22,13 @@ The Master Key is never stored and only exists in memory during the session. To 
 Using `npm`:
 
 ```bash
-npm install -g vaultgen
+npm install -g @stackvoid/vaultgen
 ```
 
 Using `pnpm`:
 
 ```bash
-pnpm install -g vaultgen
+pnpm install -g @stackvoid/vaultgen
 ```
 
 ### **Usage**
